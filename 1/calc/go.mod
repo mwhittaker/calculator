@@ -2,13 +2,9 @@ module github.com/mwhittaker/calculator/1/calc
 
 go 1.21
 
-replace github.com/mwhittaker/calculator/1/adder => ../adder
-
-replace github.com/mwhittaker/calculator/1/multiplier => ../multiplier
-
 require (
-	github.com/mwhittaker/calculator/1/adder v0.0.0-00010101000000-000000000000
-	github.com/mwhittaker/calculator/1/multiplier v0.0.0-00010101000000-000000000000
+	github.com/mwhittaker/calculator/1/adder v0.0.0-20231010224312-488db6c210fa
+	github.com/mwhittaker/calculator/1/multiplier v0.0.0-20231010224312-488db6c210fa
 	google.golang.org/grpc v1.58.3
 )
 
