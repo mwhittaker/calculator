@@ -1,4 +1,17 @@
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: adder-config
+data:
+  weaver.toml: |
+    [serviceweaver]
+    name = "adder"
+
+    [single]
+    listeners.adder = {address = ":8000"}
+
+---
+apiVersion: v1
 kind: Service
 metadata:
   name: calc
@@ -75,9 +88,19 @@ spec:
       containers:
       - name: adder
         image: themwhittaker/adder
-        args: ["--addr=:8000"]
+        env:
+        - name: SERVICEWEAVER_CONFIG
+          value: "/app/weaver.toml"
         ports:
         - containerPort: 8000
+        volumeMounts:
+        - name: config
+          mountPath: /app/weaver.toml
+          subPath: weaver.toml
+      volumes:
+      - name: config
+        configMap:
+          name: adder-config
 ---
 
 apiVersion: apps/v1

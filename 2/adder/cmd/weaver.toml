@@ -1,0 +1,5 @@
+[serviceweaver]
+name = "adder"
+
+[single]
+listeners.adder = {address = "localhost:8001"}
