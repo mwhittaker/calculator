@@ -3,7 +3,7 @@ module github.com/mwhittaker/calculator/3/calc
 go 1.21
 
 require (
-	github.com/mwhittaker/calculator/3/multiplier v0.0.0-20231010230538-93e799c16fc0
+	github.com/mwhittaker/calculator/3/multiplier latest
 	google.golang.org/grpc v1.58.3
 )
 

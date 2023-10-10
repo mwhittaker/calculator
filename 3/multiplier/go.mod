@@ -1,4 +1,4 @@
-module github.com/mwhittaker/calculator/2/multiplier
+module github.com/mwhittaker/calculator/3/multiplier
 
 go 1.21
 

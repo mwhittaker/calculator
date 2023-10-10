@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net"
 
-	"github.com/mwhittaker/calculator/2/multiplier"
+	"github.com/mwhittaker/calculator/3/multiplier"
 	"google.golang.org/grpc"
 )
 

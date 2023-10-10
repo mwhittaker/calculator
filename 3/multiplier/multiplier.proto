@@ -1,5 +1,5 @@
 syntax = "proto3";
-option go_package = "github.com/mwhittaker/calculator/2/multiplier";
+option go_package = "github.com/mwhittaker/calculator/3/multiplier";
 
 service Multiplier {
   rpc Multiply(Multiplicands) returns (Product) {}
