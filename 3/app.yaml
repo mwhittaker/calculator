@@ -1,0 +1,137 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: adder-config
+data:
+  weaver.toml: |
+    [serviceweaver]
+    name = "adder"
+
+    [single]
+    listeners.calc = {address = ":8000"}
+
+  topology.toml: |
+    id = "v1"
+
+    [nodes.main]
+    address = ":8000"
+    components = ["github.com/ServiceWeaver/weaver/Main"]
+    listeners = {calc = "localhost:8000"}
+
+    [nodes.adder]
+    address = ":8000"
+    dial_address = "adder:8000"
+    components = ["github.com/mwhittaker/calculator/3/calc/Adder"]
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: calc
+spec:
+  selector:
+    app: calc
+  ports:
+  - port: 8000
+  type: LoadBalancer
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: adder
+spec:
+  selector:
+    app: adder
+  ports:
+  - protocol: TCP
+    port: 8000
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: multiplier
+spec:
+  selector:
+    app: multiplier
+  ports:
+  - protocol: TCP
+    port: 8000
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: calc
+spec:
+  selector:
+    matchLabels:
+      app: calc
+  template:
+    metadata:
+      labels:
+        app: calc
+    spec:
+      containers:
+      - name: calc
+        image: themwhittaker/calc
+        args: ["--addr=:8000", "--adder=adder:8000", "--multiplier=multiplier:8000"]
+        ports:
+        - containerPort: 8000
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adder
+spec:
+  selector:
+    matchLabels:
+      app: adder
+  template:
+    metadata:
+      labels:
+        app: adder
+    spec:
+      containers:
+      - name: adder
+        image: themwhittaker/adder
+        env:
+        - name: SERVICEWEAVER_CONFIG
+          value: "/app/weaver.toml"
+        ports:
+        - containerPort: 8000
+        volumeMounts:
+        - name: config
+          mountPath: /app/weaver.toml
+          subPath: weaver.toml
+      volumes:
+      - name: config
+        configMap:
+          name: adder-config
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: multiplier
+spec:
+  selector:
+    matchLabels:
+      app: multiplier
+  template:
+    metadata:
+      labels:
+        app: multiplier
+    spec:
+      containers:
+      - name: multiplier
+        image: themwhittaker/multiplier
+        args: ["--addr=:8000"]
+        ports:
+        - containerPort: 8000
