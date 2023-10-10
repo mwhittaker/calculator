@@ -1,0 +1,15 @@
+syntax = "proto3";
+option go_package = "github.com/mwhittaker/calculator/2/adder";
+
+service Adder {
+  rpc Add(Summands) returns (Sum) {}
+}
+
+message Summands {
+  int64 x = 1;
+  int64 y = 2;
+}
+
+message Sum {
+  int64 sum = 1;
+}
