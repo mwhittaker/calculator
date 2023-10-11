@@ -10,7 +10,7 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    title[<u>1b (same as 1, but with single binary)</u>]
+    title[<u>1b</u>]
     style title fill:#FFF,stroke:#FFF
     calc --> adder
     calc --> multiplier
