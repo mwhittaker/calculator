@@ -3,14 +3,14 @@ FROM golang:1.21 AS build
 WORKDIR /app
 COPY go.mod go.sum ./
 RUN go mod download
-RUN GOBIN=/ go install github.com/ServiceWeaver/weaver/cmd/weaver@exec
+RUN GOBIN=/ CGO_ENABLED=0 go install github.com/ServiceWeaver/weaver/cmd/weaver@exec
 COPY *.go ./
 COPY cmd ./cmd/
-RUN cd cmd && CGO_ENABLED=0 go build -o calc
+RUN cd cmd && CGO_ENABLED=0 go build -o /app/calc
 
 # Run the server.
 FROM alpine:latest
 WORKDIR /
 COPY --from=build /app/calc /app/calc
 COPY --from=build /weaver /weaver
-ENTRYPOINT ["weaver", "exec", "/app/weaver.toml", "/app/topology.toml"]
+ENTRYPOINT ["/weaver", "exec", "/app/weaver.toml", "/app/topology.toml"]

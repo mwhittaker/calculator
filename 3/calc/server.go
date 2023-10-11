@@ -26,7 +26,7 @@ type Server struct {
 	lis weaver.Listener `weaver:"calc"`
 }
 
-func (s *Server) Init() error {
+func (s *Server) Init(context.Context) error {
 	// Create a client to the multiplier service.
 	conn, err := grpc.Dial(s.Config().MultiplierAddr, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {

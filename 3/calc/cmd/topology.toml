@@ -1,0 +1,10 @@
+id = "v1"
+
+[nodes.main]
+address = "localhost:9000"
+components = ["github.com/ServiceWeaver/weaver/Main"]
+listeners.calc = "localhost:8000"
+
+[nodes.adder]
+address = "localhost:9001"
+components = ["github.com/mwhittaker/calculator/3/calc/Adder"]
