@@ -1,0 +1,8 @@
+[serviceweaver]
+name = "calc"
+binary = "cmd/cmd"
+
+[kube]
+listeners.collatz = {public = true}
+image = "calc:3b"
+repo = "docker.io/themwhittaker"
