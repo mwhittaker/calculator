@@ -1,6 +1,0 @@
-[serviceweaver]
-binary = "./cmd"
-name = "calc"
-
-["github.com/ServiceWeaver/weaver/Main"]
-multiplier_addr = "localhost:8002"

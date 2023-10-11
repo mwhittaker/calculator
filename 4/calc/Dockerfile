@@ -5,8 +5,7 @@ COPY go.mod go.sum ./
 RUN go mod download
 RUN GOBIN=/ CGO_ENABLED=0 go install github.com/ServiceWeaver/weaver/cmd/weaver@exec
 COPY *.go ./
-COPY cmd ./cmd/
-RUN cd cmd && CGO_ENABLED=0 go build -o /app/calc
+RUN CGO_ENABLED=0 go build -o /app/calc
 
 # Run the server.
 FROM alpine:latest

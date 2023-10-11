@@ -20,8 +20,8 @@ data:
     listeners.calc = "localhost:8000"
 
     [nodes.adder]
-    address = ":8000"
-    dial_address = "adder:8000"
+    address = ":9000"
+    dial_address = "adder:9000"
     components = ["github.com/mwhittaker/calculator/3/calc/Adder"]
 
 ---
@@ -48,7 +48,7 @@ spec:
     app: adder
   ports:
   - protocol: TCP
-    port: 8000
+    port: 9000
 
 ---
 
@@ -85,6 +85,7 @@ spec:
         args: ["main"]
         ports:
         - containerPort: 8000
+        - containerPort: 9000
         volumeMounts:
         - name: config
           mountPath: /app/weaver.toml
@@ -118,7 +119,7 @@ spec:
         imagePullPolicy: Always
         args: ["adder"]
         ports:
-        - containerPort: 8000
+        - containerPort: 9000
         volumeMounts:
         - name: config
           mountPath: /app/weaver.toml

@@ -65,7 +65,8 @@ spec:
     spec:
       containers:
       - name: calc
-        image: themwhittaker/calc
+        image: themwhittaker/calc:2
+        imagePullPolicy: Always
         args: ["--addr=:8000", "--adder=adder:8000", "--multiplier=multiplier:8000"]
         ports:
         - containerPort: 8000
@@ -87,7 +88,8 @@ spec:
     spec:
       containers:
       - name: adder
-        image: themwhittaker/adder
+        image: themwhittaker/adder:3
+        imagePullPolicy: Always
         env:
         - name: SERVICEWEAVER_CONFIG
           value: "/app/weaver.toml"
@@ -118,7 +120,8 @@ spec:
     spec:
       containers:
       - name: multiplier
-        image: themwhittaker/multiplier
+        image: themwhittaker/multiplier:3
+        imagePullPolicy: Always
         args: ["--addr=:8000"]
         ports:
         - containerPort: 8000

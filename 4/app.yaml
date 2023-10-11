@@ -17,13 +17,13 @@ data:
     listeners.calc = "localhost:8000"
 
     [nodes.adder]
-    address = ":8000"
-    dial_address = "adder:8000"
+    address = ":9000"
+    dial_address = "adder:9000"
     components = ["github.com/mwhittaker/calculator/4/calc/Adder"]
 
     [nodes.multiplier]
-    address = ":8000"
-    dial_address = "multiplier:8000"
+    address = ":9000"
+    dial_address = "multiplier:9000"
     components = ["github.com/mwhittaker/calculator/4/calc/Multiplier"]
 
 ---
@@ -50,7 +50,7 @@ spec:
     app: adder
   ports:
   - protocol: TCP
-    port: 8000
+    port: 9000
 
 ---
 
@@ -63,7 +63,7 @@ spec:
     app: multiplier
   ports:
   - protocol: TCP
-    port: 8000
+    port: 9000
 
 ---
 
