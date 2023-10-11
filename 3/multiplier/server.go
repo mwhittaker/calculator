@@ -15,3 +15,5 @@ func (s *Server) Multiply(ctx context.Context, in *Multiplicands) (*Product, err
 	fmt.Printf("Multiply(%d, %d)\n", in.X, in.Y)
 	return &Product{Product: in.X * in.Y}, nil
 }
+
+var _ int = 1
