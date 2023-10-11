@@ -1,0 +1,104 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: calc
+spec:
+  selector:
+    app: calc
+  ports:
+  - port: 8000
+  type: LoadBalancer
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: adder
+spec:
+  selector:
+    app: adder
+  ports:
+  - protocol: TCP
+    port: 8000
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: multiplier
+spec:
+  selector:
+    app: multiplier
+  ports:
+  - protocol: TCP
+    port: 8000
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: calc
+spec:
+  selector:
+    matchLabels:
+      app: calc
+  template:
+    metadata:
+      labels:
+        app: calc
+    spec:
+      containers:
+      - name: calc
+        image: themwhittaker/calc:1b
+        imagePullPolicy: Always
+        args: ["--calc=:8000", "--adder_address=adder:8000", "--multiplier_address=multiplier:8000"]
+        ports:
+        - containerPort: 8000
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adder
+spec:
+  selector:
+    matchLabels:
+      app: adder
+  template:
+    metadata:
+      labels:
+        app: adder
+    spec:
+      containers:
+      - name: calc
+        image: themwhittaker/calc:1b
+        imagePullPolicy: Always
+        args: ["--adder=:8000"]
+        ports:
+        - containerPort: 8000
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: multiplier
+spec:
+  selector:
+    matchLabels:
+      app: multiplier
+  template:
+    metadata:
+      labels:
+        app: multiplier
+    spec:
+      containers:
+      - name: calc
+        image: themwhittaker/calc:1b
+        imagePullPolicy: Always
+        args: ["--multiplier=:8000"]
+        ports:
+        - containerPort: 8000

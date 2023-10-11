@@ -10,6 +10,14 @@ flowchart TD
 
 ```mermaid
 flowchart TD
+    title[<u>1b (same as 1, but with single binary)</u>]
+    style title fill:#FFF,stroke:#FFF
+    calc --> adder
+    calc --> multiplier
+```
+
+```mermaid
+flowchart TD
     title[<u>2</u>]
     style title fill:#FFF,stroke:#FFF
     calc --> adder[go run .\nadder]
@@ -62,6 +70,7 @@ flowchart TD
 |    | Go  | Proto | YAML | TOML | Docker |
 | -- | --- | ----- | ---- | ---- | ------ |
 | 1  | 167 | 24    | 95   | 0    | 33     |
+| 1b | 159 | 24    | 95   | 0    | 11     |
 | 2  | 184 | 24    | 116  | 0    | 33     |
 | 3  | 136 | 12    | 140  | 0    | 24     |
 | 3b | 136 | 12    | 31   | 9    | 11     |
