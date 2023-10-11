@@ -8,9 +8,6 @@ data:
     name = "calc"
     binary = "/app/calc"
 
-    ["github.com/ServiceWeaver/weaver/Main"]
-    multiplier_addr = "multiplier:8000"
-
   topology.toml: |
     id = "v1"
 
@@ -23,6 +20,11 @@ data:
     address = ":8000"
     dial_address = "adder:8000"
     components = ["github.com/mwhittaker/calculator/4/calc/Adder"]
+
+    [nodes.multiplier]
+    address = ":8000"
+    dial_address = "multiplier:8000"
+    components = ["github.com/mwhittaker/calculator/4/calc/Multiplier"]
 
 ---
 
@@ -85,6 +87,7 @@ spec:
         args: ["main"]
         ports:
         - containerPort: 8000
+        - containerPort: 9000
         volumeMounts:
         - name: config
           mountPath: /app/weaver.toml
@@ -118,7 +121,7 @@ spec:
         imagePullPolicy: Always
         args: ["adder"]
         ports:
-        - containerPort: 8000
+        - containerPort: 9000
         volumeMounts:
         - name: config
           mountPath: /app/weaver.toml
@@ -148,8 +151,19 @@ spec:
     spec:
       containers:
       - name: multiplier
-        image: themwhittaker/multiplier:4
+        image: themwhittaker/calc:4
         imagePullPolicy: Always
-        args: ["--addr=:8000"]
+        args: ["multiplier"]
         ports:
-        - containerPort: 8000
+        - containerPort: 9000
+        volumeMounts:
+        - name: config
+          mountPath: /app/weaver.toml
+          subPath: weaver.toml
+        - name: config
+          mountPath: /app/topology.toml
+          subPath: topology.toml
+      volumes:
+      - name: config
+        configMap:
+          name: calc-config
