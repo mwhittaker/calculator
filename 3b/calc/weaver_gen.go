@@ -15,14 +15,14 @@ import (
 
 func init() {
 	codegen.Register(codegen.Registration{
-		Name:  "github.com/mwhittaker/calculator/3/calc/Adder",
+		Name:  "github.com/mwhittaker/calculator/3b/calc/Adder",
 		Iface: reflect.TypeOf((*Adder)(nil)).Elem(),
 		Impl:  reflect.TypeOf(adder{}),
 		LocalStubFn: func(impl any, caller string, tracer trace.Tracer) any {
-			return adder_local_stub{impl: impl.(Adder), tracer: tracer, addMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/mwhittaker/calculator/3/calc/Adder", Method: "Add", Remote: false})}
+			return adder_local_stub{impl: impl.(Adder), tracer: tracer, addMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/mwhittaker/calculator/3b/calc/Adder", Method: "Add", Remote: false})}
 		},
 		ClientStubFn: func(stub codegen.Stub, caller string) any {
-			return adder_client_stub{stub: stub, addMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/mwhittaker/calculator/3/calc/Adder", Method: "Add", Remote: true})}
+			return adder_client_stub{stub: stub, addMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/mwhittaker/calculator/3b/calc/Adder", Method: "Add", Remote: true})}
 		},
 		ServerStubFn: func(impl any, addLoad func(uint64, float64)) codegen.Server {
 			return adder_server_stub{impl: impl.(Adder), addLoad: addLoad}
@@ -47,7 +47,7 @@ func init() {
 		ReflectStubFn: func(caller func(string, context.Context, []any, []any) error) any {
 			return main_reflect_stub{caller: caller}
 		},
-		RefData: "⟦951c0a69:wEaVeReDgE:github.com/ServiceWeaver/weaver/Main→github.com/mwhittaker/calculator/3/calc/Adder⟧\n⟦41990618:wEaVeRlIsTeNeRs:github.com/ServiceWeaver/weaver/Main→calc⟧\n",
+		RefData: "⟦55739722:wEaVeReDgE:github.com/ServiceWeaver/weaver/Main→github.com/mwhittaker/calculator/3b/calc/Adder⟧\n⟦41990618:wEaVeRlIsTeNeRs:github.com/ServiceWeaver/weaver/Main→calc⟧\n",
 	})
 }
 

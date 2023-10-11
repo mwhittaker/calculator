@@ -16,6 +16,7 @@ main() {
   echo "> Building calc..."
   go generate ./...
   go build ./...
+  (cd cmd && go build .)
   weaver-kube deploy weaver.toml
   echo
   cd ..

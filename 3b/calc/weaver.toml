@@ -2,7 +2,10 @@
 name = "calc"
 binary = "cmd/cmd"
 
+["github.com/ServiceWeaver/weaver/Main"]
+multiplier_addr = "multiplier:8000"
+
 [kube]
-listeners.collatz = {public = true}
+listeners.calc = { public = true, service_name = "calc" }
 image = "calc:3b"
 repo = "docker.io/themwhittaker"
