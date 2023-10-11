@@ -1,0 +1,8 @@
+[serviceweaver]
+name = "calc"
+binary = "./calc"
+
+[kube]
+listeners.calc = {public = true}
+image = "calc:5"
+repo = "docker.io/themwhittaker"
