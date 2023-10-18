@@ -1,0 +1,7 @@
+[nodes.main]
+http_address = "localhost:8000"
+services = ["adder", "calc"]
+
+[nodes.mult]
+grpc_address = "localhost:9000"
+services = ["multiplier"]
